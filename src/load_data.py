@@ -1,6 +1,7 @@
 import pandas as pd
 
 def load_movie_data():
+    return 0;
 
 
 if __name__ == '__main__':
