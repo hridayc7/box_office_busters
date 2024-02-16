@@ -1,12 +1,92 @@
+import csv
+import os
+import requests
 import pandas as pd
 
+# api headers including user login key for auth
+headers = {
+    "accept": "application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmM2EzYjE0YmJkYzY5MjcyZmNiMDUwZDI3M2Y3Mjc3ZCIsInN1YiI6IjY1YzZjNjQ0NjgwYmU4MDE3ZWEzNDhhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NZeryWwYxMP1qjN0Stw33lF7cPmnJBuwmPmguIiIvMs"
+}
+
+def generate_tmdb_url(imdb_id):
+    base_url = "https://api.themoviedb.org/3/find/"
+    external_source = "external_source=imdb_id"
+    return f"{base_url}{imdb_id}?{external_source}"
+
+
+def fetch_movie_info(imdb_id):
+
+    url = generate_tmdb_url(imdb_id=imdb_id)
+
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+
+        response_json = response.json()
+
+        # handle case movie doesn't exist
+        if len(response_json['movie_results']) == 0:
+        
+            return None, None
+    
+        
+        movie_result = response_json['movie_results'][0]  # Access the first (and only) movie result
+        id = movie_result.get('id')
+        movie_info = {
+            'title': movie_result.get('title'),
+            'release_date': movie_result.get('release_date'),
+        }
+        return id, movie_info
+    
+    else:
+        return None
+
+
+
 def load_movie_data():
-    return 0;
+
+    base_path = '../data/imdb/'
+
+    movie_files = ['action.csv', 'adventure.csv', 'animation.csv', 'biography.csv', 
+                        'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 
+                        'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 
+                        'sports.csv', 'thriller.csv', 'war.csv']
+    
+    # this will be used for creating the pandas dataframe -> which we can then output as a csv file
+    movie_dict = {}
+    
+    for file in movie_files:
+
+        file_path = os.path.join(base_path, file)
+
+        with open(file_path, mode='r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip the header row
+            counter = 1
+            for row in reader:
+
+                imdb_id = row[0]
+
+                id, movie_info = fetch_movie_info(imdb_id=imdb_id)
+
+                if movie_info is not None:
+                    print(counter)
+                    print(movie_info)
+                    counter += 1
+                    movie_dict[id] = movie_info
+                    
+
+    df = pd.DataFrame(movie_dict)
+    df.to_csv('out.csv', index=False)
+
+    return 0
 
 
 if __name__ == '__main__':
     # Load the movie data
-    df = load_movie_data()
+    load_movie_data()
+
+    # movie_info = fetch_movie_info('tt0117705')
     
-    # Display the first few rows of the DataFrame
-    print(df.head())
+
