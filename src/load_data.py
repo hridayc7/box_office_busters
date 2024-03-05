@@ -48,10 +48,7 @@ def load_movie_data():
 
     base_path = '../data/imdb/'
 
-    movie_files = ['action.csv', 'adventure.csv', 'animation.csv', 'biography.csv', 
-                        'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 
-                        'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 
-                        'sports.csv', 'thriller.csv', 'war.csv']
+    movie_files = ['action.csv', 'adeventure.csv', 'animation.csv', 'biography.csv', 'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 'sports.csv', 'thriller.csv', 'war.csv']
     
     # this will be used for creating the pandas dataframe -> which we can then output as a csv file
     movie_dict = {}
@@ -70,13 +67,12 @@ def load_movie_data():
 
                 id, movie_info = fetch_movie_info(imdb_id=imdb_id)
 
-                if movie_info is not None:
-                    print(counter)
-                    print(movie_info)
-                    counter += 1
+                if id is not None:
                     movie_dict[id] = movie_info
+                    print(f"{id}, {movie_info['title']}, {movie_info['release_date']}")
                     
 
+    print("Finished fetching... creating csv now")
     df = pd.DataFrame(movie_dict)
     df.to_csv('out.csv', index=False)
 
