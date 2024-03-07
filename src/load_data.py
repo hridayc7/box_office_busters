@@ -2,6 +2,7 @@ import csv
 import os
 import requests
 import pandas as pd
+import tqdm
 
 # api headers including user login key for auth
 headers = {
@@ -48,7 +49,7 @@ def load_movie_data():
 
     base_path = '../data/imdb/'
 
-    movie_files = ['action.csv', 'adeventure.csv', 'animation.csv', 'biography.csv', 'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 'sports.csv', 'thriller.csv', 'war.csv']
+    movie_files = ['action.csv', 'adventure.csv', 'animation.csv', 'biography.csv', 'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 'sports.csv', 'thriller.csv', 'war.csv']
     
     # this will be used for creating the pandas dataframe -> which we can then output as a csv file
     movie_dict = {}
@@ -56,12 +57,15 @@ def load_movie_data():
     for file in movie_files:
 
         file_path = os.path.join(base_path, file)
-
+        print(file_path)
         with open(file_path, mode='r') as file:
             reader = csv.reader(file)
             next(reader)  # Skip the header row
-            counter = 1
+            count = 1
             for row in reader:
+
+                if(count == 10):
+                    break
 
                 imdb_id = row[0]
 
@@ -69,12 +73,17 @@ def load_movie_data():
 
                 if id is not None:
                     movie_dict[id] = movie_info
-                    print(f"{id}, {movie_info['title']}, {movie_info['release_date']}")
+                    # print(f"{id}, {movie_info['title']}, {movie_info['release_date']}")
+            
+                count += 1
+        
+    
                     
-
     print("Finished fetching... creating csv now")
-    df = pd.DataFrame(movie_dict)
-    df.to_csv('out.csv', index=False)
+    print(movie_dict)
+    df = pd.DataFrame.from_dict(movie_dict, orient='index')
+    print(df.head(10))
+    df.to_csv('1_out.csv', index=True)
 
     return 0
 
