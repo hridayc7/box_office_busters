@@ -61,11 +61,7 @@ def load_movie_data():
         with open(file_path, mode='r') as file:
             reader = csv.reader(file)
             next(reader)  # Skip the header row
-            count = 1
             for row in reader:
-
-                if(count == 10):
-                    break
 
                 imdb_id = row[0]
 
@@ -75,15 +71,13 @@ def load_movie_data():
                     movie_dict[id] = movie_info
                     # print(f"{id}, {movie_info['title']}, {movie_info['release_date']}")
             
-                count += 1
-        
     
                     
     print("Finished fetching... creating csv now")
     print(movie_dict)
     df = pd.DataFrame.from_dict(movie_dict, orient='index')
     print(df.head(10))
-    df.to_csv('1_out.csv', index=True)
+    df.to_csv('movies_out.csv', index=True)
 
     return 0
 
