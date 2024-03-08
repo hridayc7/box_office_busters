@@ -3,6 +3,7 @@ import os
 import requests
 import pandas as pd
 import tqdm
+from tqdm import tqdm
 
 # api headers including user login key for auth
 headers = {
@@ -46,6 +47,7 @@ def fetch_movie_info(imdb_id):
 
 
 def load_movie_data():
+    print("eeehehehehehhehehEH")
 
     base_path = '../data/imdb/'
 
@@ -54,7 +56,8 @@ def load_movie_data():
     # this will be used for creating the pandas dataframe -> which we can then output as a csv file
     movie_dict = {}
     
-    for file in movie_files:
+
+    for file in tqdm(movie_files):
 
         file_path = os.path.join(base_path, file)
         print(file_path)
