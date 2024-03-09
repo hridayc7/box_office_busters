@@ -6,3 +6,5 @@ To run any of these files, you want to create a python virtual environment. EECS
 Once you have created a virtual environment use "pip install -r requirements.txt" to run all python files in this directory.
 
 TMDb: https://developer.themoviedb.org/reference/intro/getting-started
+
+To make viewing plots easier, models are saved as Jupyter notebooks.
