@@ -1,9 +1,19 @@
+"""
+File: load_data.py
+Description: This script goes through all the data in the Kaggle dataset (https://www.kaggle.com/datasets/rajugc/imdb-movies-dataset-based-on-genre?resource=download) 
+and fetches the tmdb id, movie name and movie release data using the TMDB api.
+
+Our output file is stored in the box_office_busters/data/tmdb_ids.csv
+"""
+
 import csv
 import os
 import requests
 import pandas as pd
 import tqdm
 from tqdm import tqdm
+
+
 
 # api headers including user login key for auth
 headers = {
