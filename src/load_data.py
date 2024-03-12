@@ -57,8 +57,6 @@ def fetch_movie_info(imdb_id):
 
 
 def load_movie_data():
-    print("eeehehehehehhehehEH")
-
     base_path = '../data/imdb/'
 
     movie_files = ['action.csv', 'adventure.csv', 'animation.csv', 'biography.csv', 'crime.csv', 'family.csv', 'fantasy.csv', 'film-noir.csv', 'history.csv', 'horror.csv', 'mystery.csv', 'romance.csv', 'scifi.csv', 'sports.csv', 'thriller.csv', 'war.csv']
@@ -68,7 +66,6 @@ def load_movie_data():
     
 
     for file in tqdm(movie_files):
-
         file_path = os.path.join(base_path, file)
         print(file_path)
         with open(file_path, mode='r') as file:
