@@ -18,7 +18,7 @@ def segment_csv(csv_file, num_segments):
         header = next(reader)  # Read the header
 
         # Initialize segment counters and CSV writers
-        segment_size = 140000 // num_segments
+        segment_size = 1000 // num_segments
         current_segment = 1
         current_segment_count = 0
         output_file = None
@@ -56,8 +56,8 @@ def segment_csv(csv_file, num_segments):
     print(f"CSV file segmented into {num_segments} files in directory: {directory}")
 
 def main():
-    csv_file = '../data/tmdb_ids.csv'  # Change this to the path of your CSV file
-    num_segments = 14
+    csv_file = '/Users/hridayc/Developer/box_office_busters/data/tmdb/combined_tmdb_data.csv'  # Change this to the path of your CSV file
+    num_segments = 1
     segment_csv(csv_file, num_segments)
 
 if __name__ == "__main__":
