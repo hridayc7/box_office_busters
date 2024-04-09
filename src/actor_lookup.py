@@ -13,4 +13,7 @@ results_with_ids = ag.lookup_actor_pair(ag.G, 4868, 1900, 2009)
 
 print(results_with_names == results_with_ids)
 
-print(results_with_ids)
+print(f'Result list for Daniel Radcliffe and Emma Watson movies before 2009: {results_with_ids}')
+
+#example usage of get_average_roi(input_graph, actor_a, actor_b, release_year_cutoff)
+print(f'Average ROI for Daniel Radcliffe and Emma Watson movies before 2009: {ag.get_average_roi(ag.G, 4868, 1900, 2009)}')

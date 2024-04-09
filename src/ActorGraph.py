@@ -130,3 +130,13 @@ class ActorGraph():
     def print_nodes(self, graph: MultiGraph):
         for node, data in graph.nodes(data=True):
             print(f"ID: {node}, Name: {data.get('name', 'N/A')}")
+
+    def get_average_roi(self, graph: MultiGraph, actor_a: str, actor_b: str, year: float) -> float:
+        actor_pairings = self.lookup_actor_pair(graph, actor_a, actor_b, year)
+        average_roi = 0
+        total_roi = 0
+        if actor_pairings:
+            for p in actor_pairings:
+                total_roi += p['roi']
+        average_roi = total_roi / len(actor_pairings)
+        return average_roi
