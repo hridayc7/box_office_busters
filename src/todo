@@ -1,0 +1,25 @@
+1. Go from filtered_data.csv to april.csv
+    - Remove movies in the df that have budget or revenue values that are less than or equal to 10
+    - Go through all tmdb_ids in filtered_data.csv and get the values for runtime using processed_tmdb_data.csv
+
+    - DONE
+
+
+2. Run Regression -- Budget vs Revenue on updated_filtered_data.csv
+
+    - DONE
+
+
+3. Add on the the Filtered_April_dataset with:
+    - Target Encoding for Actor 0 Name
+    - Target Encoding for Actor 1 Name
+    - Target Encoding for Actor 2 Name
+    - Target Encoding for Director Name
+    - Target Encoding for Production Company Name
+    - Write a little blurb on what Target Encoding Is and What It Achieves
+
+4. Run Regression on the Target Encoded Stuff
+
+5. Do that Regression without the Budget
+
+6. Add in the Tag
